@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TRAMP — URL</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #38bdf8;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px #0ea5e9;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        input[type="url"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .result {
+            margin-top: 20px;
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+        }
+
+        a {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔗 TRAMP URL</h1>
+    <div class="container">
+        <form method="post">
+            <label>Paste your long URL:</label>
+            <input type="url" name="long_url" placeholder="https://example.com" required>
+
+            <label>Custom short code (optional):</label>
+            <input type="text" name="custom_code" placeholder="e.g. gitil">
+
+            <button type="submit">Generate Short Link</button>
+        </form>
+
+        {% if short_url %}
+            <div class="result">
+                ✅ Your short link: <br>
+                <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

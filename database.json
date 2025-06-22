@@ -1,0 +1,12 @@
+{
+  "short_to_long": {
+    "ig26s": "https://www.instagram.com/someuser/",
+    "gitil": "https://github.com/indiecryptolist/quickstart-icp-ts",
+    "ggrkb": "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox/FMfcgzQbfpHrXjfsmwfRsZjvWhVdSKFB"
+  },
+  "long_to_short": {
+    "https://www.instagram.com/someuser/": "ig26s",
+    "https://github.com/indiecryptolist/quickstart-icp-ts": "gitil",
+    "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox/FMfcgzQbfpHrXjfsmwfRsZjvWhVdSKFB": "ggrkb"
+  }
+}
