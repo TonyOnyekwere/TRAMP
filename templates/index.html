@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>TRAMP — URL</title>
+    <meta charset="UTF-8">
+    <title>TRAMP URL </title>
+    <link rel="icon" type="image/jpg" href="{{ url_for('static', filename='darksky.jpg') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style -->
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(145deg, #0f172a, #1e293b);
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 100px;
         }
 
-        h1 {
-            font-size: 2.5em;
+        header {
+            background: #1e40af;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
             color: #38bdf8;
-            margin-bottom: 10px;
         }
 
         .container {
+            max-width: 700px;
+            margin: 30px auto;
             background: #1e293b;
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 0 20px #0ea5e9;
-            width: 90%;
-            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px #38bdf8;
         }
 
-        input[type="url"],
-        input[type="text"] {
+        form input[type="url"],
+        form input[type="text"] {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -41,10 +49,9 @@
         button {
             background: #38bdf8;
             color: #0f172a;
+            font-weight: bold;
             border: none;
             padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
@@ -52,37 +59,116 @@
 
         .result {
             margin-top: 20px;
-            background: #0f172a;
             padding: 15px;
+            background: #0f172a;
             border-radius: 8px;
+        }
+
+        .result a {
+            color: #38bdf8;
             word-break: break-all;
         }
 
-        a {
-            color: #38bdf8;
-            font-weight: bold;
+        /* Ad Section */
+        .ads {
+            margin-top: 30px;
+            background: #172554;
+            padding: 20px;
+            text-align: center;
+            border-radius: 12px;
         }
+
+        .ads img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Carousel */
+        .slideshow {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: none;
+            width: 100%;
+        }
+
     </style>
 </head>
 <body>
-    <h1>🔗 TRAMP URL</h1>
-    <div class="container">
-        <form method="post">
-            <label>Paste your long URL:</label>
-            <input type="url" name="long_url" placeholder="https://example.com" required>
 
-            <label>Custom short code (optional):</label>
-            <input type="text" name="custom_code" placeholder="e.g. gitil">
+<header>
+<img src="{{ url_for('static', filename='darksky.jpg') }}" alt="TRAMP Logo" style="height: 60px;"><br>
+<h1>TRAMP URL</h1>
+</header>
 
-            <button type="submit">Generate Short Link</button>
-        </form>
+<div class="container">
+    <form method="post">
+        <label>Enter Long URL:</label>
+        <input type="url" name="long_url" placeholder="https://example.com" required>
 
-        {% if short_url %}
-            <div class="result">
-                ✅ Your short link: <br>
-                <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
-            </div>
-        {% endif %}
+        <label>Custom Code (optional):</label>
+        <input type="text" name="custom_code" placeholder="e.g. gitil">
+
+        <button type="submit">Shorten URL</button>
+    </form>
+
+    {% if short_url %}
+        <div class="result">
+             ✅ Your short link:<br>
+            <input type="text" id="shortLink" value="{{ short_url }}" readonly style="width:100%; padding:10px; border-radius:8px; margin-top:10px;">
+            <button onclick="copyLink()" style="margin-top:10px; background:#22c55e; color:#fff; border:none; padding:10px; border-radius:8px; width:100%; cursor:pointer;">
+                📋 Copy to Clipboard
+            </button>
+        </div>
+
+    {% endif %}
+
+    <!-- SLIDESHOW -->
+    <div class="slideshow">
+        <img class="slides" src="https://via.placeholder.com/700x200?text=🔒+Protect+Your+Links" alt="Slide 1">
+        <img class="slides" src="https://via.placeholder.com/700x200?text=💼+Branded+Short+Links" alt="Slide 2">
+        <img class="slides" src="https://via.placeholder.com/700x200?text=📈+Track+Clicks+and+Traffic" alt="Slide 3">
     </div>
+
+    <!-- ADS -->
+    <div class="ads">
+        <p><strong>🔥 Featured Sponsor:</strong></p>
+        <a href="https://example.com">
+            <img src="https://via.placeholder.com/600x120?text=Your+Ad+Here" alt="Ad">
+        </a>
+    </div>
+</div>
+
+<!-- Carousel Script -->
+<script>
+    let index = 0;
+    carousel();
+
+    function carousel() {
+        const x = document.getElementsByClassName("slides");
+        for (let i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        index++;
+        if (index > x.length) { index = 1 }
+        x[index - 1].style.display = "block";
+        setTimeout(carousel, 4000); // Change every 4s
+    }
+</script>
+<script>
+function copyLink() {
+    const link = document.getElementById("shortLink");
+    link.select();
+    link.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("✅ Link copied to clipboard!");
+}
+</script>
+
 </body>
 </html>
